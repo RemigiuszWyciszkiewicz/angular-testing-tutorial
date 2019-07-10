@@ -98,8 +98,8 @@ describe('HomeComponent', () => {
 
   });
 
-
-  it('should display advanced courses when tab clicked ', (done: DoneFn) => {
+  // funkcja zawarta w fakeAsync pozwala na uzywanie komend flush,miktotaskflush oraz tick
+  fit('should display advanced courses when tab clicked ', fakeAsync(() => {
 
       coursesService.findAllCourses.and.returnValue(of(setupCourses()));
 
@@ -111,21 +111,21 @@ describe('HomeComponent', () => {
 
       fixture.detectChanges();
 
-      setTimeout(() => {
 
-        const cardTitles = el.queryAll(By.css('.mat-card-title'));
+      // flush czysci kolejke taskow
+      flush();
 
-        expect(cardTitles.length).toBeGreaterThan(0, 'Could not find card titles');
+      // można również użyć tick(16) ponieważ animacja uruchomiona po naciśnięciu przycisku trwa 16ms
+      // tick(16);
 
-        expect(cardTitles[0].nativeElement.textContent).toContain('Angular Security Course');
+      const cardTitles = el.queryAll(By.css('.mat-card-title'));
 
-        done();
+      expect(cardTitles.length).toBeGreaterThan(0, 'Could not find card titles');
 
-      }, 500);
+      expect(cardTitles[0].nativeElement.textContent).toContain('Angular Security Course');
 
 
-
-  });
+  }));
 
 
 });
