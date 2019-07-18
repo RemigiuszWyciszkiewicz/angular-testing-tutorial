@@ -98,7 +98,7 @@ describe('Async testing example', () => {
 
   }));
 
-  fit('Asynchronous test example - Observables', fakeAsync (() => {
+  it('Asynchronous test example - Observables', fakeAsync (() => {
 
     let test = false;
 
